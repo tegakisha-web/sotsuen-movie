@@ -8,14 +8,19 @@
   body {
     margin: 0;
     overflow: hidden;
-    background: black;
     font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
   }
 
-  #player {
+  #video-wrapper {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+  }
+
+  iframe {
     width: 100%;
     height: 100%;
   }
@@ -33,72 +38,30 @@
       #fbdde6 100%
     );
     color: #444;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
-    opacity: 0;
-    transition: opacity 1.5s ease;
   }
 
   #message {
     font-size: 24px;
     line-height: 1.9;
-    transform: scale(0.95);
-    opacity: 0;
-    transition: transform 1.5s ease, opacity 1.5s ease;
-  }
-
-  #thanks.show {
-    opacity: 1;
-  }
-
-  #thanks.show #message {
-    transform: scale(1);
-    opacity: 1;
   }
 </style>
 </head>
 <body>
 
-<div id="player"></div>
-
-<div id="thanks">
-  <div id="message">
-    ご視聴ありがとうございました！<br>
-    森のようちえん どんぐり<br>
-    2026年度 卒園記念
-  </div>
+<div id="video-wrapper">
+  <iframe 
+    id="ytplayer"
+    src="https://www.youtube.com/embed/BcpCP47u9qY?rel=0"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
 </div>
-
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-  var player;
-
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      videoId: 'BcpCP47u9qY',
-      playerVars: {
-        autoplay: 0,
-        mute: 0,
-        controls: 1,
-        rel: 0,
-        playsinline: 1,
-        modestbranding: 1
-      },
-      events: {
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-
-  function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) {
-      document.getElementById('thanks').classList.add('show');
-    }
-  }
-</script>
 
 </body>
 </html>
