@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graduation Movie</title>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  }
+
+  #player {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #thanks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      #fff7f9 0%,
+      #fdeff2 50%,
+      #fbdde6 100%
+    );
+    color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+
+  #message {
+    font-size: 24px;
+    line-height: 1.9;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 1.5s ease, opacity 1.5s ease;
+  }
+
+  #thanks.show {
+    opacity: 1;
+  }
+
+  #thanks.show #message {
+    transform: scale(1);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+
+<div id="thanks">
+  <div id="message">
+    ご視聴ありがとうございました！<br>
+    森のようちえん どんぐり<br>
+    2026年度 卒園記念
+  </div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  var player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      videoId: 'https://youtu.be/BcpCP47u9qY',
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 1,
+        rel: 0,
+        playsinline: 1,
+        modestbranding: 1
+      },
+      events: {
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+      document.getElementById('thanks').classList.add('show');
+    }
+  }
+</script>
+
+</body>
+</html>
